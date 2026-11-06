@@ -1,0 +1,14 @@
+Prebuilt Target APEX Shadow Repository
+Component: packages/modules/NetworkStack
+Package: ext-networkstack
+Target API: 34
+Arch: x86_64
+Built-By: ag-build / makeapex
+Artifacts:
+  - bin/NetworkStack.apk
+  - bin/InProcessNetworkStack.apk
+  - lib64/libnetworkstackutilsjni.so
+  - share/networkstack/networkstack-client.jar
+  - proguard.flags
+  - jarjar-excludes.txt
+  - aidl/ (NetworkStack AIDL interfaces)

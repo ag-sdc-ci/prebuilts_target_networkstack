@@ -1,0 +1,108 @@
+// Auto-generated prebuilt Blueprint for prebuilts_target_networkstack
+// Extractive APEX shadow repository for packages/modules/NetworkStack.
+//
+// Root-flattened layout per GEMINI.md and shadow-conventions.md.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+// -----------------------------------------------------------------------------
+// JNI Shared Library
+// -----------------------------------------------------------------------------
+
+cc_prebuilt_library_shared {
+    name: "libnetworkstackutilsjni",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["lib64/libnetworkstackutilsjni.so"],
+        },
+        lib32: {
+            srcs: ["lib/libnetworkstackutilsjni.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "liblog",
+        "libc++",
+    ],
+    sdk_version: "30",
+    min_sdk_version: "30",
+    prefer: true,
+}
+
+// -----------------------------------------------------------------------------
+// Java Client Library
+// -----------------------------------------------------------------------------
+
+java_import {
+    name: "networkstack-client",
+    jars: ["share/networkstack/networkstack-client.jar"],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    visibility: [
+        "//packages/modules/Connectivity/Tethering",
+        "//packages/modules/Connectivity/service",
+        "//frameworks/base/services/net",
+        "//frameworks/opt/net/wifi/service",
+        "//packages/apps/Bluetooth",
+        "//packages/modules/Bluetooth/android/app",
+        "//packages/modules/NetworkStack",
+        "//packages/modules/Wifi/service:__subpackages__",
+        "//visibility:public",
+    ],
+    prefer: true,
+}
+
+// -----------------------------------------------------------------------------
+// Applications
+// -----------------------------------------------------------------------------
+
+android_app_import {
+    name: "NetworkStack",
+    apk: "bin/NetworkStack.apk",
+    certificate: "networkstack",
+    privileged: true,
+    prefer: true,
+}
+
+android_app_import {
+    name: "InProcessNetworkStack",
+    apk: "bin/InProcessNetworkStack.apk",
+    certificate: "platform",
+    privileged: true,
+    overrides: [
+        "NetworkStack",
+        "NetworkStackNext",
+    ],
+    prefer: true,
+}
+
+// -----------------------------------------------------------------------------
+// Compile-Time Rule Files
+// -----------------------------------------------------------------------------
+
+filegroup {
+    name: "networkstack-proguard-flags",
+    srcs: ["proguard.flags"],
+    visibility: ["//visibility:public"],
+}
+
+filegroup {
+    name: "networkstack-jarjar-excludes",
+    srcs: ["jarjar-excludes.txt"],
+    visibility: ["//visibility:public"],
+}
+
+// -----------------------------------------------------------------------------
+// AIDL Files
+// -----------------------------------------------------------------------------
+
+filegroup {
+    name: "networkstack-aidl-srcs",
+    srcs: ["aidl/**/*.aidl"],
+    visibility: ["//visibility:public"],
+}
